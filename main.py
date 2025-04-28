@@ -193,7 +193,7 @@ def handle_events():
                 if isinstance(element, Slider):
                     if element.handle_event(event):
                         if element is speed_slider:
-                            simulation_speed = element.value
+                            simulation_speed = element.value  # Actualizar la velocidad aquí
                 elif isinstance(element, Checkbox):
                     if element.handle_event(event):
                         if element is vectors_checkbox:
@@ -209,6 +209,11 @@ def handle_events():
                 elif isinstance(element, TextField):
                     element.handle_event(event, fonts)
 
+        elif event.type == pygame.MOUSEBUTTONUP:
+            # Asegurarse de soltar el slider
+            if speed_slider.dragging:
+                speed_slider.dragging = False
+
         elif event.type == pygame.MOUSEMOTION:
             mouse_pos = pygame.mouse.get_pos()
             current_tooltip = None
@@ -220,6 +225,14 @@ def handle_events():
                     current_tooltip = Tooltip(tooltip_text)
                     tooltip_timer = 1.0
                     break
+
+            # Manejar arrastre del slider
+            if event.buttons[0]:  # Si el botón izquierdo está presionado
+                for element in control_panel_elements:
+                    if isinstance(element, Slider) and element.rect.collidepoint(mouse_pos):
+                        if element.handle_event(event):
+                            if element is speed_slider:
+                                simulation_speed = element.value  # Actualizar durante el arrastre
 
 def update_simulation(dt):
     global simulation_time  # Añade esta línea
