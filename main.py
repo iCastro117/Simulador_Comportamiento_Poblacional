@@ -94,17 +94,25 @@ def create_person(start_pos, target_pos):
 
 def start_simulation():
     global simulation_running, people, simulation_time, density_map
+
     if not start_point or not meet_points:
         print("Error: Debes establecer un punto de inicio y al menos un punto de encuentro")
         return
 
+    # Obtener el texto del campo de entrada y validarlo
     try:
-        num_people = int(people_input.text)
-        if num_people <= 0:
-            raise ValueError
-    except ValueError:
-        print("Error: Número de personas inválido")
-        return
+        num_text = people_input.text.strip()  # Eliminar espacios en blanco
+        if not num_text:  # Si está vacío, usar el valor por defecto
+            num_people = 100
+        else:
+            num_people = int(num_text)
+            if num_people <= 0:
+                raise ValueError("El número debe ser positivo")
+    except ValueError as e:
+        print(f"Error: Número de personas inválido - {e}")
+        # Restablecer a un valor por defecto seguro
+        people_input.text = "100"
+        num_people = 100
 
     num_people = min(num_people, 2000)  # Límite máximo
     people.clear()
@@ -188,26 +196,33 @@ def handle_events():
             if 0 <= pos[0] < SIM_WIDTH and pos[1] >= TOP_BAR_HEIGHT:
                 handle_map_click(pos)
 
-            # Elementos del panel de control
+            # Primero verificar clic en el campo de texto
+            text_field_clicked = False
             for element in control_panel_elements:
-                if isinstance(element, Slider):
-                    if element.handle_event(event):
-                        if element is speed_slider:
-                            simulation_speed = element.value  # Actualizar la velocidad aquí
-                elif isinstance(element, Checkbox):
-                    if element.handle_event(event):
-                        if element is vectors_checkbox:
-                            show_vectors = element.checked
-                        elif element is trails_checkbox:
-                            show_trails = element.checked
-                        elif element is fallen_trails_checkbox:
-                            show_fallen_trails = element.checked
-                elif isinstance(element, DropDown):
-                    if element.handle_event(event):
-                        visualization_mode = element.get_selected_value()
-                        update_density_map()
-                elif isinstance(element, TextField):
-                    element.handle_event(event, fonts)
+                if isinstance(element, TextField) and element.rect.collidepoint(pos):
+                    if element.handle_event(event, fonts):
+                        text_field_clicked = True
+
+            # Solo procesar otros eventos si no se hizo clic en el campo de texto
+            if not text_field_clicked:
+                # Elementos del panel de control
+                for element in control_panel_elements:
+                    if isinstance(element, Slider):
+                        if element.handle_event(event):
+                            if element is speed_slider:
+                                simulation_speed = element.value  # Actualizar la velocidad aquí
+                    elif isinstance(element, Checkbox):
+                        if element.handle_event(event):
+                            if element is vectors_checkbox:
+                                show_vectors = element.checked
+                            elif element is trails_checkbox:
+                                show_trails = element.checked
+                            elif element is fallen_trails_checkbox:
+                                show_fallen_trails = element.checked
+                    elif isinstance(element, DropDown):
+                        if element.handle_event(event):
+                            visualization_mode = element.get_selected_value()
+                            update_density_map()
 
         elif event.type == pygame.MOUSEBUTTONUP:
             # Asegurarse de soltar el slider
@@ -233,6 +248,13 @@ def handle_events():
                         if element.handle_event(event):
                             if element is speed_slider:
                                 simulation_speed = element.value  # Actualizar durante el arrastre
+
+        # Manejo de eventos de teclado
+        elif event.type == pygame.KEYDOWN:
+            for element in control_panel_elements:
+                if isinstance(element, TextField) and element.active:
+                    if element.handle_event(event, fonts):
+                        break  # Solo un campo de texto puede estar activo a la vez
 
 def update_simulation(dt):
     global simulation_time  # Añade esta línea
