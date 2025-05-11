@@ -1,0 +1,371 @@
+/* Estilos globales para el simulador */
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+
+/* Variables personalizables - AJUSTA ESTOS VALORES SEGÚN TUS NECESIDADES */
+
+:root {
+    /* Ajusta estos valores para controlar el tamaño del mapa 3D */
+    --map-width: 100%;
+    /* Ancho del mapa 3D en porcentaje */
+    /* Ajusta este valor para controlar la altura de la barra de botones */
+    --controls-height: 60px;
+    /* Altura de la barra de botones en píxeles */
+}
+
+.simulator-main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.simulator-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    background-color: #2563eb;
+    color: white;
+    width: 100%;
+}
+
+.simulator-container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 4rem);
+    /* Altura ajustada para restar el título */
+}
+
+
+/* Layout principal del simulador */
+
+.simulator-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Contenedor del mapa */
+
+.map-container {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Contenedor del canvas 3D - PERSONALIZABLE */
+
+.map-canvas-container {
+    width: var(--map-width);
+    /* Ocupa todo el espacio disponible excepto la barra de botones */
+    flex: 1;
+    position: relative;
+}
+
+.map-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+
+/* Panel de controles */
+
+.controls-panel {
+    width: 320px;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.controls-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.controls-section {
+    margin-bottom: 1.5rem;
+}
+
+.control-group {
+    margin-bottom: 0.5rem;
+}
+
+.control-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.control-label {
+    font-weight: medium;
+}
+
+.control-value {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.control-description {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+/* Botones de control - PERSONALIZABLE */
+
+.map-controls {
+    height: var(--controls-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    /* Asegura que la barra de botones esté al final del contenedor */
+    margin-top: auto;
+}
+
+.controls-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    padding: 1rem 1.5rem;
+    /* Aumenta el tamaño interno */
+    font-size: 1.125rem;
+    /* Tamaño de letra más grande */
+    border-radius: 0.5rem;
+    /* Esquinas un poco más redondeadas */
+    font-weight: 600;
+    /* Texto más grueso */
+    transition: background-color 0.2s;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+.btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-blue {
+    background-color: #3b82f6;
+}
+
+.btn-blue:hover:not(:disabled) {
+    background-color: #2563eb;
+}
+
+.btn-green {
+    background-color: #10b981;
+}
+
+.btn-green:hover:not(:disabled) {
+    background-color: #059669;
+}
+
+.btn-red {
+    background-color: #ef4444;
+}
+
+.btn-red:hover:not(:disabled) {
+    background-color: #dc2626;
+}
+
+.btn-gray {
+    background-color: #6b7280;
+}
+
+.btn-gray:hover:not(:disabled) {
+    background-color: #4b5563;
+}
+
+.btn-yellow {
+    background-color: #f59e0b;
+}
+
+.btn-yellow:hover:not(:disabled) {
+    background-color: #d97706;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+
+/* Estadísticas */
+
+.stats-container {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-weight: 500;
+}
+
+.stat-value {
+    font-weight: 700;
+}
+
+.stat-value-red {
+    color: #ef4444;
+}
+
+.stat-value-orange {
+    color: #f59e0b;
+}
+
+
+/* Botón Acerca del Proyecto */
+
+.about-project-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.about-project-btn:hover {
+    background-color: #2563eb;
+}
+
+
+/* Modal */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.modal-close:hover {
+    color: #111827;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-right: 2rem;
+}
+
+.modal-content {
+    margin-bottom: 1rem;
+}
+
+.modal-section {
+    margin-bottom: 1.5rem;
+}
+
+.modal-section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.modal-list {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.modal-reference-list {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.modal-reference-item {
+    margin-bottom: 0.5rem;
+}
+
+
+/* GUÍA DE PERSONALIZACIÓN:
+ * 
+ * Para ajustar el tamaño del mapa 3D:
+ * 1. Modifica --map-width para cambiar el ancho (usa porcentajes, ej: 90%, 95%, 100%)
+ * 
+ * Para ajustar la altura de la barra de botones:
+ * 2. Modifica --controls-height para cambiar la altura (usa píxeles, ej: 50px, 60px, 70px)
+ */

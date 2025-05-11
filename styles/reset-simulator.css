@@ -1,0 +1,459 @@
+/* Reset completo para eliminar cualquier estilo previo */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+
+/* Estructura principal */
+
+.simulator-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+.simulator-title {
+    background-color: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.simulator-container {
+    display: flex;
+    flex: 1;
+    position: relative;
+}
+
+
+/* Layout del simulador */
+
+.simulator-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Contenedor del mapa */
+
+.map-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+}
+
+
+/* Canvas 3D */
+
+.map-canvas-container {
+    flex: 1;
+    width: 100%;
+    height: calc(100vh - 180px);
+    /* Reduce la altura reservada, ajusta según tu header y botones */
+    position: relative;
+    overflow: hidden;
+}
+
+.map-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+
+/* Barra de botones - FIJA en la parte inferior */
+
+.map-controls {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    width: calc(100% - 320px);
+    /* Ancho total menos el panel de settings */
+    height: 60px;
+    background-color: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.controls-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+/* Panel de configuración */
+
+.controls-panel {
+    width: 320px;
+    background-color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* 🔥 Fuerza a usar todo el alto de la pantalla */
+    max-height: 100vh;
+    overflow-y: auto;
+    /* 🔥 Habilita el scroll vertical */
+    padding: 1rem 0.75rem 2rem 1rem;
+    /* Espacio interno visible */
+    scrollbar-width: thin;
+}
+
+.controls-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.controls-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+
+/* Estilos específicos para los sliders en el panel de controles */
+
+.control-group {
+    margin-bottom: 1.5rem;
+}
+
+.control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.control-label {
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.control-value {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.control-description {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.3rem;
+}
+
+.controls-section .slider {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 2rem;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+/* Botones */
+
+.btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+.btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-blue {
+    background-color: #3b82f6;
+}
+
+.btn-blue:hover:not(:disabled) {
+    background-color: #2563eb;
+}
+
+.btn-green {
+    background-color: #10b981;
+}
+
+.btn-green:hover:not(:disabled) {
+    background-color: #059669;
+}
+
+.btn-red {
+    background-color: #ef4444;
+}
+
+.btn-red:hover:not(:disabled) {
+    background-color: #dc2626;
+}
+
+.btn-gray {
+    background-color: #6b7280;
+}
+
+.btn-gray:hover:not(:disabled) {
+    background-color: #4b5563;
+}
+
+.btn-yellow {
+    background-color: #f59e0b;
+}
+
+.btn-yellow:hover:not(:disabled) {
+    background-color: #d97706;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+
+/* Estadísticas */
+
+.stats-container {
+    margin-top: 0rem;
+    /* Antes probablemente era mayor */
+    margin-bottom: 6rem;
+    /* Antes probablemente era mayor */
+    padding-top: 0.3rem;
+    border-top: 1px solid #ccc;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-weight: 500;
+}
+
+.stat-value {
+    font-weight: 700;
+}
+
+.stat-value-red {
+    color: #ef4444;
+}
+
+.stat-value-orange {
+    color: #f59e0b;
+}
+
+
+/* Botón Acerca del Proyecto */
+
+.about-project-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.about-project-btn:hover {
+    background-color: #2563eb;
+}
+
+
+/* Modal */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.modal-close:hover {
+    color: #111827;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-right: 2rem;
+}
+
+.modal-content {
+    margin-bottom: 1rem;
+}
+
+.modal-section {
+    margin-bottom: 1.5rem;
+}
+
+.modal-section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.modal-list {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.modal-reference-list {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.modal-reference-item {
+    margin-bottom: 0.5rem;
+}
+
+
+/* Error container */
+
+.error-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+}
+
+.error-box {
+    padding: 1.5rem;
+    max-width: 28rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.error-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    margin-bottom: 1rem;
+}
+
+.error-list {
+    list-style-type: disc;
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+
+/* Clase para que los sliders se muestren correctamente */
+
+.slider {
+    height: 50px;
+    /* 👈 Esto los hace visibles */
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.slider span[data-orientation="horizontal"] {
+    height: 12px !important;
+    background-color: #d1d5db !important;
+    /* Tailwind bg-gray-300 */
+}
+
+
+/* Forzar estilo de todos los sliders Radix para que se vean SÍ o SÍ */
+
+[data-orientation="horizontal"].relative {
+    height: 16px !important;
+    background-color: #d1d5db !important;
+    /* gray-300 */
+    border-radius: 999px;
+}
+
+[data-orientation="horizontal"]>.absolute {
+    background-color: #3b82f6 !important;
+    /* blue-500 */
+    height: 100% !important;
+}
+
+[data-orientation="horizontal"]>[role="slider"] {
+    height: 20px !important;
+    width: 20px !important;
+    background-color: white !important;
+    border: 2px solid #3b82f6 !important;
+    border-radius: 999px;
+}
